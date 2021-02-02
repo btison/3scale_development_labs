@@ -58,6 +58,17 @@
         "tags": [
           "products"
         ],
+        "parameters": [
+          {
+            "name": "id",
+            "description": "Product Id",
+            "schema": {
+              "type": "integer"
+            },
+            "in": "path",
+            "required": true
+          }
+        ],
         "responses": {
           "204": {
             "description": "Product deleted"
@@ -68,62 +79,6 @@
         },
         "summary": "Delete Product",
         "description": "Delete Product By Id"
-      },
-      "parameters": [
-        {
-          "name": "id",
-          "description": "Product Id",
-          "schema": {
-            "type": "integer"
-          },
-          "in": "path",
-          "required": true
-        }
-      ]
-    },
-    "/api/products": {
-      "summary": "Products",
-      "description": "All products",
-      "get": {
-        "tags": [
-          "products"
-        ],
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Product"
-                  }
-                },
-                "examples": {
-                  "All Products": {
-                    "value": [
-                      {
-                        "id": 83,
-                        "name": "my product 1",
-                        "price": 6.08
-                      },
-                      {
-                        "id": 78,
-                        "name": "my product 2",
-                        "price": 32.99
-                      }
-                    ]
-                  }
-                }
-              }
-            },
-            "description": "OK - Get all products"
-          },
-          "500": {
-            "description": "Error"
-          }
-        },
-        "summary": "Get All Products",
-        "description": "Get All Products"
       }
     },
     "/api/product": {
@@ -170,6 +125,51 @@
         },
         "summary": "Create Product",
         "description": "Create a product"
+      }
+    },
+    "/api/products": {
+      "summary": "Products",
+      "description": "All products",
+      "get": {
+        "tags": [
+          "products"
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Product"
+                  }
+                },
+                "examples": {
+                  "All Products": {
+                    "value": [
+                      {
+                        "id": 83,
+                        "name": "my product 1",
+                        "price": 6.08
+                      },
+                      {
+                        "id": 78,
+                        "name": "my product 2",
+                        "price": 32.99
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            "description": "OK - Get all products"
+          },
+          "500": {
+            "description": "Error"
+          }
+        },
+        "summary": "Get All Products",
+        "description": "Get All Products"
       }
     }
   },
