@@ -1,0 +1,203 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "CoolStore Products API ",
+    "version": "1.0.0",
+    "description": "OpenAPI document for Coolstore Products API"
+  },
+  "paths": {
+    "/api/product/{id}": {
+      "summary": "Get, Delete Product",
+      "description": "Get, Delete Product",
+      "get": {
+        "tags": [
+          "products"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "description": "Product Id",
+            "schema": {
+              "type": "integer"
+            },
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Product"
+                },
+                "examples": {
+                  "Product": {
+                    "value": {
+                      "id": 64,
+                      "name": "some text",
+                      "price": 87.57
+                    }
+                  }
+                }
+              }
+            },
+            "description": "OK"
+          },
+          "404": {
+            "description": "Product with given Id not found"
+          },
+          "500": {
+            "description": "Error"
+          }
+        },
+        "summary": "Get Product",
+        "description": "Get Product By Id"
+      },
+      "delete": {
+        "tags": [
+          "products"
+        ],
+        "responses": {
+          "204": {
+            "description": "Product deleted"
+          },
+          "500": {
+            "description": "Error"
+          }
+        },
+        "summary": "Delete Product",
+        "description": "Delete Product By Id"
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "description": "Product Id",
+          "schema": {
+            "type": "integer"
+          },
+          "in": "path",
+          "required": true
+        }
+      ]
+    },
+    "/api/products": {
+      "summary": "Products",
+      "description": "All products",
+      "get": {
+        "tags": [
+          "products"
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Product"
+                  }
+                },
+                "examples": {
+                  "All Products": {
+                    "value": [
+                      {
+                        "id": 83,
+                        "name": "my product 1",
+                        "price": 6.08
+                      },
+                      {
+                        "id": 78,
+                        "name": "my product 2",
+                        "price": 32.99
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            "description": "OK - Get all products"
+          },
+          "500": {
+            "description": "Error"
+          }
+        },
+        "summary": "Get All Products",
+        "description": "Get All Products"
+      }
+    },
+    "/api/product": {
+      "summary": "Create Product",
+      "description": "Create Product",
+      "post": {
+        "requestBody": {
+          "description": "Product",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Product"
+              },
+              "examples": {
+                "Create Product": {
+                  "value": {
+                    "name": "my product",
+                    "price": 62.95
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "tags": [
+          "products"
+        ],
+        "responses": {
+          "201": {
+            "description": "Product Created",
+            "headers": {
+              "location": {
+                "schema": {
+                  "type": "string"
+                },
+                "description": "Location of product"
+              }
+            }
+          },
+          "500": {
+            "description": "Error"
+          }
+        },
+        "summary": "Create Product",
+        "description": "Create a product"
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Product": {
+        "title": "Root Type for Product",
+        "description": "Product Entity",
+        "type": "object",
+        "properties": {
+          "id": {
+            "format": "int32",
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          },
+          "price": {
+            "format": "double",
+            "type": "number"
+          }
+        },
+        "example": {
+          "id": 1,
+          "name": "my product",
+          "price": 100.99
+        }
+      }
+    }
+  }
+}
