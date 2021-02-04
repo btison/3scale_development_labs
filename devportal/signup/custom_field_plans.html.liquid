@@ -2,18 +2,24 @@
     <div class="container">
         <h1>Pick your plan</h1>
         <br/>
-      {% for field in current_account.extra_fields %}
-        {% if field.label contains 'access' %}
-            {% assign access = field.value %}
-        {% endif %}
-      {% endfor %}
+        {% for field in current_account.extra_fields %}
+            {% if field.label contains 'access' %}
+                {% assign access = field.value %}
+            {% endif %}
+        {% endfor %}
           <h1>{{ access }}</h1>
         <div class="row">
-          	{% for service in provider.services %} 
-          		 {% for feature in service.features %}
-          		
-          		    {% if feature.system_name contains access %} 
-          			{% for plan in service.application_plans %}
+        {% for service in provider.services %} 
+            {% for feature in service.features %}
+                {% if feature.system_name contains access %} 
+                    {% for plan in service.application_plans %}
+                        {% for f in plan.features %}
+                            {% assign show = null %}
+                            {% if f.name == access %}
+                                {% assign show = access %}
+                            {% endif %}
+                        {% endfor %}
+                        {% if show == access %}
 
             <div class="col-md-6">
                 <article class="panel panel-default">
@@ -63,18 +69,18 @@
                     </div>
                 </article>
             </div>
-
-            		{% endfor %} 
- 
-          		{% else %}
-          
-          		{% comment %}
-          		request to be assigned some membership
-          		{% endcomment %}
-          
-          		{% endif %} 
-          		{% endfor %}
-          {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+                        
+                {% else %}
+                        
+                    {% comment %}
+                        request to be assigned some membership
+                    {% endcomment %}
+                        
+                {% endif %}
+            {% endfor %}
+        {% endfor %}
 
 
         </div>
