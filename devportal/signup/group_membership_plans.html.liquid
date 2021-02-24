@@ -8,9 +8,10 @@
             {% assign sections = current_user.sections %}
             {% for service in provider.services %}
                 {% for section in sections %}
-                    {% assign cleanedsection = section | remove_first: "/" %}
+                    {% assign cleanedsection = section | remove_first: "/" | downcase %}
                     {% for feature in service.features %}
-                        {% if feature.name contains cleanedsection %}
+                        {% assign featurenamedowncase = feature.name | downcase %} 
+                        {% if featurenamedowncase contains cleanedsection %}
                             {% for appplan in service.application_plans %}
 
             <div class="col-md-6">
